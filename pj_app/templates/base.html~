@@ -67,15 +67,19 @@
     <!-- Outer Container -->
     <div id="outer-container">
 
-      <!-- Left Sidebar
+      <!-- Left Sidebar -->
       <section id="left-sidebar" style="background:rgba(0,0,0,1.0);">
+        
+ 
+
+        <!-- Menu Icon for smaller viewports -->
         <div id="mobile-menu-icon" style="height:5px;" class="visible-xs" onClick="toggle_main_menu();"><span class="glyphicon glyphicon-th" onmouseover="this.style.color='#FFCC99';" onmouseout="this.style.color='white';" style="color: white; right:-20px; margin-top: 10px;display:inline-block;" ></span></div>
 
         <ul id="main-menu" style="padding-top:15px;">
           <li class="menu-item scroll" ><a href="/" onmouseover="this.style.color='#d9c09e';" onmouseout="this.style.color='white';">Search</a></li>
-        </ul>
+        </ul><!-- #main-menu -->
 
-      </section>-->
+      </section><!-- #left-sidebar -->
       <!-- end: Left Sidebar -->
 
       <section id="main-content" class="clearfix">

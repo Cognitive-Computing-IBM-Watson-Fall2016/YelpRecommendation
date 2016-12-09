@@ -19,6 +19,12 @@ Home
 		       		{% for i in rnge %}
 				<h3>Restaurant Name: {{rname[i]}}</h3>
 
+				{%for img in images[i]%}
+				<div class="col-md-4" alien="center">
+				<img src="{{img}}">
+				</div>
+				{% endfor %}
+
 				<script>
 					function draw(words) {
 					    d3.select("body").append("svg")
@@ -53,11 +59,6 @@ Home
 									            .on("end", draw)
 									            .start();
 									</script>
-							{%for img in images[i]%}
-							<div class="col-md-4" alien="center">
-							<img src="{{img}}">
-							</div>
-							{% endfor %}
 
 							{% endfor %}
 

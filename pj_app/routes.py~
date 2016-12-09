@@ -14,7 +14,7 @@ def index():
     for r in rstrnt:
         query=r+''+',Pittsburg,Yelp'
         try:
-            bimg=PyBingImageSearch('',query)
+            bimg=PyBingImageSearch('+q+40f1/cj/Ys6/YvDOFnegdHiZzN2pHyQ+3UetmoR4=',query)
             res=bimg.search(limit=3,format='json')
         except:
             break

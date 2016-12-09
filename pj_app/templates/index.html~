@@ -57,7 +57,7 @@
 {%for i in rnge%}
 <h1>Restaurant Name: {{rname[i]}}</h1>
 <div style="width: 1000px; height: 300px;">
-    <img src="{{images[i][0]}}" style="border:2px solid white;height:100%;width=50%">
+    <img src="http://deltaskymag.delta.com/getattachment/46bbf2f9-8d98-4216-a87a-0221405cf2d9/Eleven.aspx" style="border:2px solid white;height:100%;width=50%">
 </div>
 <script>
     var frequency_list = {{freqs[i]|safe}};
