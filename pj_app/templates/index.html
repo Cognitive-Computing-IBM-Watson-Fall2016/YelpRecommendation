@@ -30,6 +30,13 @@
     .bld {
         font-weight: bold;
     }
+	hr {
+    height: 5px;
+    color: white;
+    background: white;
+    font-size: 0;
+    border: 0;
+	}
 </style>
 <script>
     function draw(words) {
@@ -55,20 +62,19 @@
 
 <body>
 {%for i in rnge%}
-<h1>Restaurant Name: {{rname[i]}}</h1>
+<h1>{{i+1}}. Restaurant Name: {{rname[i]}}</h1>
 <div style="width: 1000px; height: 300px;">
 <img src="{{images[i][0]}}" style="border:2px solid white;height:100%;width=50%">
 <img src="{{images[i][1]}}" style="border:2px solid white;height:100%;width=50%">
 </div>
+<h3>Word Cloud for {{rname[i]}}:</h3>
 <script>
     var frequency_list = {{freqs[i]|safe}};
 
 
     var color = d3.scale.linear()
             .domain([0,1,2,3,4,5,6,10,15,20,100])
-            .range(["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222","#fea"]);
-//"#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222","#fea,"#670CB6","#2EB60C","#B6170C","#B22525","#E7ED30","#3050ED"]);
-
+            .range(["#ccffff","#ffffcc","#b3ffff","#e6ffcc","#99ffff","#b3ffe6"]);
     d3.layout.cloud().size([800, 300])
             .words(frequency_list)
             .rotate(0)
@@ -76,7 +82,7 @@
             .on("end", draw)
             .start();
 </script>
-<br>
+<hr>
 {%endfor%}
 </body>
 </html>
