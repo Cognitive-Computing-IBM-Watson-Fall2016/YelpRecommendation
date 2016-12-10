@@ -12,9 +12,9 @@ def index():
     imgs=[]
     links=[]
     for r in rstrnt:
-        query=r+''+',Pittsburg,Yelp'
+        query=r+''+'Restaurant,Pittsburg,'
         try:
-            bimg=PyBingImageSearch('',query)
+            bimg=PyBingImageSearch('API key',query)
             res=bimg.search(limit=3,format='json')
         except:
             break
@@ -27,5 +27,20 @@ def index():
     lt=[]
     for i in xrange(2):
         lt.append(freqs)
-
+        
+##    from py_ms_cognitive import PyMsCognitiveImageSearch
+##    imgs=[]
+##    links=[]
+##    for r in rstrnt:
+##        query=r+''+'Restaurant,Pittsburg,'
+##        try:
+##            bimg=PyMsCognitiveImageSearch('Cognitive API key', query)
+##            res=bimg.search(limit=3,format='json')
+##        except:
+##            break
+##        links=[]
+##        for i in res:
+##            links.append(i.content_url)
+##        imgs.append(links)
+        
     return render_template("index.html",freqs=lt,rname=rstrnt,rnge=rnge,images=imgs)
