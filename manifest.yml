@@ -1,0 +1,4 @@
+---
+applications:
+- name: yelprecommendation
+  memory: 128M
