@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+Question
+
+{% endblock %}
+
+{% block body %}
+
+		<article id="featured" class="section-wrapper clearfix" data-custom-background-img="/images/other_images/pic17.png" >
+          	<div class="content-wrapper clearfix" >            
+          		<div class="col-md-12">
+
+		            <center>
+			            <form class="form-style validate-form clearfix" action="{{ url_for('question') }}" method="POST" role="form">
+				            <div class="col-md-12">
+				            	
+		            			<div align="left">
+		            				<h1> Question </h1>
+      							</div>
+
+              					<div class="form-group form-general-error-container"></div>
+				                <div class="form-group col-md-12" align="left">
+				                  	<span class="form-group" style="color:white; font-family:helvetica; font-size:18px;">
+              							{{form.question(class_="radiobutton" )}}
+           							</span>
+				                <div class="form-group col-md-12" align="left">
+			                    	{{ form.submit(class_="btn btn-sm btn-outline-inverse") }}
+			                    </div>
+			                </div>    
+			         	</form>
+			        </center>
+          		</div>
+          	</div><!-- .content-wrapper -->
+        </article><!-- .section-wrapper -->
+
+{% endblock %}
