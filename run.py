@@ -50,7 +50,7 @@ def index():
     for r in rstrnt:
         query=r+''+'Restaurant,Pittsburg,'
         try:
-            bimg=PyMsCognitiveImageSearch('API KEY', query)
+            bimg=PyMsCognitiveImageSearch('Api Key', query)
             res=bimg.search(limit=3,format='json')
         except:
             break

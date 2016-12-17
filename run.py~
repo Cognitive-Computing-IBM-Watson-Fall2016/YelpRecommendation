@@ -7,6 +7,39 @@ import logging
 logging.captureWarnings(True)
 
 app = Flask(__name__, static_url_path='')
+app.secret_key = 'YelpRecommendation development key'
+
+from forms import QuestionForm
+
+@app.route("/question", methods=['GET','POST'])
+def question():
+    form = QuestionForm()
+
+    if request.method == 'POST':
+        print 'POST'
+        answer = form.question.data
+
+        if session['question'] == 1:
+            session['question'] = 2
+            if answer == 1:
+                return render_template('question.html', form=form)
+            elif answer == 2:
+                return render_template('question.html', form=form)
+            elif answer == 3:
+                return render_template('question.html', form=form)
+            elif answer == 4:
+                return render_template('question.html', form=form)
+
+        else:
+            session.pop('question', None)
+            return render_template('question.html', form=form)
+
+        return render_template('question.html', form=form)
+
+    elif request.method == 'GET':
+        print 'GET'
+        session['question'] = 1
+        return render_template('question.html', form=form)
 
 @app.route("/", methods=['GET','POST'])
 def index():
