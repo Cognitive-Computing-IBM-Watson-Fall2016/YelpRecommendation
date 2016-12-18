@@ -77,7 +77,7 @@
     var color = d3.scale.linear()
             .domain([0,1,2,3,4,5,6,10,15,20,100])
             .range(["#ccffff","#ffffcc","#b3ffff","#e6ffcc","#99ffff","#b3ffe6"]);
-    d3.layout.cloud().size([800, 300])
+    d3.layout.cloud().size([1000, 300])
             .words(frequency_list)
             .rotate(0)
             .fontSize(function(d) { return d.size; })
