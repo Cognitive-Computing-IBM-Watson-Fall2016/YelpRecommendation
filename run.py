@@ -1,12 +1,12 @@
 from flask import Flask
 from flask import Flask, render_template, request, flash, session, redirect, url_for
-#from pymongo import MongoClient
+from pymongo import MongoClient
 from py_ms_cognitive import PyMsCognitiveImageSearch
 from pos_wordcloud_generator import PosWordCloudGenerator
 import json
 import os
 import nltk
-#import pymongo
+import pymongo
 import logging
 logging.captureWarnings(True)
 
@@ -24,36 +24,68 @@ try:
     nltk.data.find('taggers/averaged_perceptron_tagger')
 except LookupError:
     nltk.download('averaged_perceptron_tagger')
-##nltk.download('wordnet')
 from forms import QuestionForm
-
-'''
-qstns=dict()
-qstn["q1"]={"text":"You are seated very close to a wailing baby and her mother on a flight. Your thoughts?","options":["Annoyed and Irritated, you have a drink to try and sleep through this","You offer to help the mother in any way you can","You ask the air hostess if any other seat is available","You hear someone else complain and you disagree with them"]}
-qstn["q2"]={"text":"You have a free weekend with nothing to do, which would you prefer?","options":["Volunteer for a child literacy program","Hangout with your friends","Sleep!!","Help a friend who is moving"]}
-qstn["q3"]={"text":"You are attending a social party, which one defines you?","options":["You are in a polite,passionate argument with someone of an opposite view","You are the life of the party filled with bubbly energy","You are busy gobbling food","You are by yourself willing for this thing to end"]}
-qstn["q4"]={"text":"Which one of this is you?","options":["At a buffet full of great food, you plan and start eating","You make long term plans to complete tasks and achieve milestone","You plan before you start learning a new skill, language etc.","You like to have company wheb you are about to learn new things","None of these"]}
-qstn["q5"]={"text":"You are working on a group project, what role will you play?","options":["The one who does not work yet shows up to take credit :p","You just go along the flow- whatever!","You are the leader- kind, generous and fair","You do your part, nothing more or less"]}
-'''
-
+rqry=dict()
+subqrys=[]
 @app.route("/question", methods=['GET','POST'])
 def question():
     form = QuestionForm()
-
     if request.method == 'POST':
-        answer1 = form.question1.data
-        answer2 = form.question2.data
-        answer3 = form.question3.data
-        answer4 = form.question4.data
-        answer5 = form.question5.data
-
-        print answer1
-        print answer2
-        print answer3
-        print answer4
-        print answer5
-
-        '''
+        print 'POST'
+        rqry=dict()
+        answer = form.question1.data
+        a1=form.question1.data
+        a2=form.question2.data
+        a3=form.question3.data
+        a4=form.question4.data
+        a5=form.question5.data
+        print a1,a2,a3,a4,a5
+        if a1==1 or a1==4:
+            q1={"attributes.Has TV":True}
+            subqrys.append(q1)
+        else:
+            q1={"attributes.Has TV":False}
+            subqrys.append(q1)
+        if a2==1 or a2==4:
+            q2={"attributes.Wi-FI":"free","attributes.Outdoor Seating":True}
+            subqrys.append(q2)
+        else:
+            q2={"attributes.Wi-FI":"no","attributes.Outdoor Seating":False}
+            subqrys.append(q2)
+        if a3==3 or a3==4:
+            q3={"attributes.Price Range":{"$lte":2}}
+            subqrys.append(q3)
+        else:
+            q3={"attributes.Price Range":{"$gte":3}}
+            subqrys.append(q3)
+            q4={}
+        if a4==1:
+            q4={"attributes.Ambience.classy":True}
+            subqrys.append(q4)
+        elif a4==2:
+            q4={"attributes.Ambience.upscale":True}
+            subqrys.append(q4)
+        elif a4==3:
+            q4={"attributes.Ambience.trendy":True}
+            subqrys.append(q4)
+        elif a4==4:
+            q4={"attributes.Ambience.divey":True}
+            subqrys.append(q4)
+        elif a4==5:
+            q4={"attributes.Ambience.casual":True}
+            subqrys.append(q4)
+        if a5==1 or a5==4:
+            q5={"attributes.Alcohol":"full_bar"}
+            subqrys.append(q5)
+        elif a5==2:
+            q5={"attributes.Alcohol":"beer_and_wine"}
+            subqrys.append(q5)
+        elif a5==3:
+            {"attributes.Alcohol":"none"}
+            subqrys.append(q5)
+        
+        rqry["$and"]=subqrys
+        print rqry
         if session['question'] == 1:
             session['question'] = 2
             if answer == 1:
@@ -68,12 +100,12 @@ def question():
         else:
             session.pop('question', None)
             return render_template('question.html', form=form)
-        '''
 
         return render_template('question.html', form=form)
 
     elif request.method == 'GET':
-        # session['question'] = 1
+        print 'GET'
+        session['question'] = 1
         return render_template('question.html', form=form)
 
 @app.route("/result", methods=['GET','POST'])
@@ -99,7 +131,7 @@ def index():
     for r in rstrnt:
         query=r+''+' Restaurant,Pittsburg,'
         try:
-            bimg=PyMsCognitiveImageSearch('Api Key', query)
+            bimg=PyMsCognitiveImageSearch('Api key', query)
             res=bimg.search(limit=3,format='json')
 ##            if res.status_code==404:
 ##                res=[{"content_url":""},{"content_url":""},{"content_url":""}]
@@ -117,7 +149,7 @@ def index():
     return render_template("index.html",freqs=lt,rname=rstrnt,rnge=rnge,images=imgs,stars=stars)
 
 def query_restaurant(query):
-    client=MongoClient('mongodb://yelpers:<password>@ds139567.mlab.com:39567/w6998')
+    client=MongoClient('mongodb://yelpers:<passsword>@ds139567.mlab.com:39567/w6998')
     db=client.w6998
     restrnt=db.restaurants
     result=dict()
