@@ -80,7 +80,7 @@ def index():
     for r in rstrnt:
         query=r+''+' Restaurant,Pittsburg,'
         try:
-            bimg=PyMsCognitiveImageSearch('2a63458b103540af840b0515da917bdd', query)
+            bimg=PyMsCognitiveImageSearch('Api Key', query)
             res=bimg.search(limit=3,format='json')
         except:
             break
@@ -94,7 +94,7 @@ def index():
     return render_template("index.html",freqs=lt,rname=rstrnt,rnge=rnge,images=imgs,stars=stars)
 
 def query_restaurant(query):
-    client=MongoClient('mongodb://yelpers:abc123@ds139567.mlab.com:39567/w6998')
+    client=MongoClient('mongodb://<user>:<password>@ds139567.mlab.com:39567/w6998')
     db=client.w6998
     restrnt=db.restaurants
     result=dict()
