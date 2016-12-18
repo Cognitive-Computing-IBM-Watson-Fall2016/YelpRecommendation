@@ -27,6 +27,63 @@ except LookupError:
 from forms import QuestionForm
 rqry=dict()
 subqrys=[]
+def makequery(a1,a2,a3,a4,a5):
+    rqry=dict()
+    subqrys=[]
+    if a1==1 or a1==4:
+        q1={"attributes.Has TV":True}
+        subqrys.append(q1)
+    else:
+        q1={"attributes.Has TV":False}
+        subqrys.append(q1)
+    if a2==1 or a2==4:
+        q2={"attributes.Wi-FI":"free","attributes.Outdoor Seating":True}
+        subqrys.append(q2)
+    else:
+        q2={"attributes.Wi-FI":"no","attributes.Outdoor Seating":False}
+        subqrys.append(q2)
+    if a3==3 or a3==4:
+        q3={"attributes.Price Range":{"$lte":2}}
+        subqrys.append(q3)
+    else:
+        q3={"attributes.Price Range":{"$gte":3}}
+        subqrys.append(q3)
+    print a4
+    if a4==1:
+        q4={"attributes.Ambience.classy":True}
+        subqrys.append(q4)
+    elif a4==2:
+        q4={"attributes.Ambience.upscale":True}
+        subqrys.append(q4)
+    elif a4==3:
+        q4={"attributes.Ambience.trendy":True}
+        subqrys.append(q4)
+    elif a4==4:
+        q4={"attributes.Ambience.divey":True}
+        subqrys.append(q4)
+    else:
+        q4={"attributes.Ambience.casual":True}
+        subqrys.append(q4)
+    print a5
+    if a5==1:
+        q5={"attributes.Alcohol":"full_bar"}
+        subqrys.append(q5)
+
+    elif a5==4:
+        q5={"attributes.Alcohol":"full_bar"}
+        subqrys.append(q5)
+    
+
+    elif a5==2:
+        q5={"attributes.Alcohol":"beer_and_wine"}
+        subqrys.append(q5)
+    else:
+        q5={"attributes.Alcohol":"none"}
+        subqrys.append(q5)
+    
+    rqry["$and"]=subqrys
+    return rqry
+
 @app.route("/question", methods=['GET','POST'])
 def question():
     form = QuestionForm()
@@ -40,66 +97,23 @@ def question():
         a4=form.question4.data
         a5=form.question5.data
         print a1,a2,a3,a4,a5
-        if a1==1 or a1==4:
-            q1={"attributes.Has TV":True}
-            subqrys.append(q1)
-        else:
-            q1={"attributes.Has TV":False}
-            subqrys.append(q1)
-        if a2==1 or a2==4:
-            q2={"attributes.Wi-FI":"free","attributes.Outdoor Seating":True}
-            subqrys.append(q2)
-        else:
-            q2={"attributes.Wi-FI":"no","attributes.Outdoor Seating":False}
-            subqrys.append(q2)
-        if a3==3 or a3==4:
-            q3={"attributes.Price Range":{"$lte":2}}
-            subqrys.append(q3)
-        else:
-            q3={"attributes.Price Range":{"$gte":3}}
-            subqrys.append(q3)
-            q4={}
-        if a4==1:
-            q4={"attributes.Ambience.classy":True}
-            subqrys.append(q4)
-        elif a4==2:
-            q4={"attributes.Ambience.upscale":True}
-            subqrys.append(q4)
-        elif a4==3:
-            q4={"attributes.Ambience.trendy":True}
-            subqrys.append(q4)
-        elif a4==4:
-            q4={"attributes.Ambience.divey":True}
-            subqrys.append(q4)
-        elif a4==5:
-            q4={"attributes.Ambience.casual":True}
-            subqrys.append(q4)
-        if a5==1 or a5==4:
-            q5={"attributes.Alcohol":"full_bar"}
-            subqrys.append(q5)
-        elif a5==2:
-            q5={"attributes.Alcohol":"beer_and_wine"}
-            subqrys.append(q5)
-        elif a5==3:
-            {"attributes.Alcohol":"none"}
-            subqrys.append(q5)
-        
-        rqry["$and"]=subqrys
+        rqry=makequery(a1,a2,a3,a4,a5)
         print rqry
-        if session['question'] == 1:
-            session['question'] = 2
-            if answer == 1:
-                return render_template('question.html', form=form)
-            elif answer == 2:
-                return render_template('question.html', form=form)
-            elif answer == 3:
-                return render_template('question.html', form=form)
-            elif answer == 4:
-                return render_template('question.html', form=form)
-
-        else:
-            session.pop('question', None)
-            return render_template('question.html', form=form)
+        
+##        if session['question'] == 1:
+##            session['question'] = 2
+##            if answer == 1:
+##                return render_template('question.html', form=form)
+##            elif answer == 2:
+##                return render_template('question.html', form=form)
+##            elif answer == 3:
+##                return render_template('question.html', form=form)
+##            elif answer == 4:
+##                return render_template('question.html', form=form)
+##
+##        else:
+##            session.pop('question', None)
+##            return render_template('question.html', form=form)
 
         return render_template('question.html', form=form)
 
@@ -111,7 +125,7 @@ def question():
 @app.route("/result", methods=['GET','POST'])
 def index():
     ##query for getting restaurant details from mongodb
-    qry={"attributes.Ambience.trendy":True}
+    qry=rqry##{"attributes.Ambience.trendy":True}
     res=query_restaurant(qry)
     rstrnt=res.get("names")
     stars=res.get("stars")
@@ -131,7 +145,7 @@ def index():
     for r in rstrnt:
         query=r+''+' Restaurant,Pittsburg,'
         try:
-            bimg=PyMsCognitiveImageSearch('Api key', query)
+            bimg=PyMsCognitiveImageSearch('Api Key', query)
             res=bimg.search(limit=3,format='json')
 ##            if res.status_code==404:
 ##                res=[{"content_url":""},{"content_url":""},{"content_url":""}]
@@ -149,7 +163,7 @@ def index():
     return render_template("index.html",freqs=lt,rname=rstrnt,rnge=rnge,images=imgs,stars=stars)
 
 def query_restaurant(query):
-    client=MongoClient('mongodb://yelpers:<passsword>@ds139567.mlab.com:39567/w6998')
+    client=MongoClient('mongodb://yelpers:<password>@ds139567.mlab.com:39567/w6998')
     db=client.w6998
     restrnt=db.restaurants
     result=dict()
