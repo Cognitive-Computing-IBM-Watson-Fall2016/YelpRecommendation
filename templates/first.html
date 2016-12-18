@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<script src="{{url_for('static', filename='d3.v3.min.js')}}"></script>
+<script src="{{url_for('static', filename='d3.layout.cloud.js')}}"></script>
+<!--<script src="d3.layout.cloud.js"></script>-->
+<head>
+    <title>Index Question</title>
+</head>
+<style>
+    body {
+        font-family:"Lucida Grande","Droid Sans",Arial,Helvetica,sans-serif;
+	color:white;
+	background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ),
+	/*background-image:*/url("pic11.png");
+	background-size: 100% 100%;
+    	background-repeat: no-repeat;
+	margin:0;
+    }
+    .legend {
+        border: 1px solid #555555;
+        border-radius: 5px 5px 5px 5px;
+        font-size: 0.8em;
+        margin: 10px;
+        padding: 8px;
+    }
+    .bld {
+        font-weight: bold;
+    }
+	hr {
+    height: 5px;
+    color: white;
+    background: white;
+    font-size: 0;
+    border: 0;
+	}
+</style>
+
+<body>
+<form action="/result" method="POST">
+<h4>1. You are seated very close to a wailing baby and her mother on a flight. Your thoughts?</h4><br>
+<input type="radio" name="q1" value="1">Annoyed and Irritated, you have a drink to try and sleep through this<br>
+<input type="radio" name="q1" value="2">You offer to help the mother in any way you can<br>
+<input type="radio" name="q1" value="3">You ask the air hostess if any other seat is available<br>
+<input type="radio" name="q1" value="4">You hear someone else complain and you disagree with them<br><br>
+<h4>2.You have a free weekend with nothing to do, which would you prefer?</h4><br>
+<input type="radio" name="q2" value="1">Volunteer for a child literacy program<br>
+<input type="radio" name="q2" value="2">Hangout with your friends<br>
+<input type="radio" name="q2" value="3">Sleep!!<br>
+<input type="radio" name="q2" value="4">Help a friend who is moving<br><br>
+<h4>3.You are attending a social party, which one defines you?</h4><br>
+<input type="radio" name="q3" value="1">You are in a polite,passionate argument with someone of an opposite view<br>
+<input type="radio" name="q3" value="2">You are the life of the party filled with bubbly energy<br>
+<input type="radio" name="q3" value="3">You are busy gobbling food<br>
+<input type="radio" name="q3" value="4">You are by yourself willing for this thing to end<br><br>
+<h4>4.Which one of this is you?</h4><br>
+<input type="radio" name="q4" value="1">At a buffet full of great food, you plan and start eating<br>
+<input type="radio" name="q4" value="2">You make long term plans to complete tasks and achieve milestones<br>
+<input type="radio" name="q4" value="3">You plan before you start learning a new skill, language etc.<br>
+<input type="radio" name="q4" value="4">You like to have company wheb you are about to learn new things<br>
+<input type="radio" name="q4" value="5">None of these<br><br>
+<h4>5.You are working on a group project, what role will you play?</h4><br>
+<input type="radio" name="q5" value="1">The one who does not work yet shows up to take credit :p<br>
+<input type="radio" name="q5" value="2">You just go along the flow- whatever!"<br>
+<input type="radio" name="q5" value="3">You are the leader- kind, generous and fair<br>
+<input type="radio" name="q5" value="4">You do your part, nothing more or less<br>
+<br><br>
+<input type="submit" value="Submit" style="">
+</form>
+</body>
+</html>
