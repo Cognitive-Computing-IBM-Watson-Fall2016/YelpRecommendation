@@ -1,12 +1,12 @@
 from flask import Flask
 from flask import Flask, render_template, request, flash, session, redirect, url_for
-from pymongo import MongoClient
+#from pymongo import MongoClient
 from py_ms_cognitive import PyMsCognitiveImageSearch
 from pos_wordcloud_generator import PosWordCloudGenerator
 import json
 import os
 import nltk
-import pymongo
+#import pymongo
 import logging
 logging.captureWarnings(True)
 
@@ -33,7 +33,7 @@ def question():
 
     if request.method == 'POST':
         print 'POST'
-        answer = form.question.data
+        answer = form.question1.data
 
         if session['question'] == 1:
             session['question'] = 2

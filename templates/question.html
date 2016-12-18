@@ -16,15 +16,50 @@ Question
 			            <form class="form-style validate-form clearfix" action="{{ url_for('question') }}" method="POST" role="form">
 				            <div class="col-md-12">
 				            	
-		            			<div align="left">
-		            				<h1> Question </h1>
-      							</div>
+		            			<h1> Questions </h1>
 
               					<div class="form-group form-general-error-container"></div>
 				                <div class="form-group col-md-12" align="left">
+				                	<span style="color:white; font-family:helvetica; font-size:25px;"> {{ form.question1.label }} </span>
+				                </div>
+				                <div class="form-group col-md-12" align="left">				                
 				                  	<span class="form-group" style="color:white; font-family:helvetica; font-size:18px;">
-              							{{form.question(class_="radiobutton" )}}
+              							{{form.question1 (class_="radiobutton" )}}
            							</span>
+           						</div>
+           						<div class="form-group col-md-12" align="left">
+				                	<span style="color:white; font-family:helvetica; font-size:25px;"> {{ form.question2.label }} </span>
+				                </div>
+				                <div class="form-group col-md-12" align="left">				                
+				                  	<span class="form-group" style="color:white; font-family:helvetica; font-size:18px;">
+              							{{form.question2 (class_="radiobutton" )}}
+           							</span>
+           						</div>
+           						<div class="form-group col-md-12" align="left">
+				                	<span style="color:white; font-family:helvetica; font-size:25px;"> {{ form.question3.label }} </span>
+				                </div>
+				                <div class="form-group col-md-12" align="left">				                
+				                  	<span class="form-group" style="color:white; font-family:helvetica; font-size:18px;">
+              							{{form.question3 (class_="radiobutton" )}}
+           							</span>
+           						</div>
+           						<div class="form-group col-md-12" align="left">
+				                	<span style="color:white; font-family:helvetica; font-size:25px;"> {{ form.question4.label }} </span>
+				                </div>
+				                <div class="form-group col-md-12" align="left">				                
+				                  	<span class="form-group" style="color:white; font-family:helvetica; font-size:18px;">
+              							{{form.question4 (class_="radiobutton" )}}
+           							</span>
+           						</div>
+           						<div class="form-group col-md-12" align="left">
+				                	<span style="color:white; font-family:helvetica; font-size:25px;"> {{ form.question5.label }} </span>
+				                </div>
+				                <div class="form-group col-md-12" align="left">				                
+				                  	<span class="form-group" style="color:white; font-family:helvetica; font-size:18px;">
+              							{{form.question5 (class_="radiobutton" )}}
+           							</span>
+           						</div>
+
 				                <div class="form-group col-md-12" align="left">
 			                    	{{ form.submit(class_="btn btn-sm btn-outline-inverse") }}
 			                    </div>
