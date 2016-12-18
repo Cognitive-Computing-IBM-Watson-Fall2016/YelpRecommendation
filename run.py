@@ -1,12 +1,12 @@
 from flask import Flask
 from flask import Flask, render_template, request, flash, session, redirect, url_for
-#from pymongo import MongoClient
+from pymongo import MongoClient
 from py_ms_cognitive import PyMsCognitiveImageSearch
 from pos_wordcloud_generator import PosWordCloudGenerator
 import json
 import os
 import nltk
-#import pymongo
+import pymongo
 import logging
 logging.captureWarnings(True)
 
@@ -82,8 +82,10 @@ def index():
         try:
             bimg=PyMsCognitiveImageSearch('Api Key', query)
             res=bimg.search(limit=3,format='json')
+##            if res.status_code==404:
+##                res=[{"content_url":""},{"content_url":""},{"content_url":""}]
         except:
-            break
+            continue
         links=[]
         for i in res:
             links.append(i.content_url)
