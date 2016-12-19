@@ -1,0 +1,39 @@
+mylogit <- glm(Has.TV ~ Openness+Conscientiousness+Extraversion+Agreeableness+Neuroticism, data = has_tv, family = "binomial")
+mylogit <- glm(Has.TV ~ Conservation+Openness.to.change+Hedonism+Self.enhancement+Self.transcendence, data = has_tv, family = "binomial")
+mylogit <- glm(Has.TV ~ Challenge+Closeness+Curiosity+Excitement+Harmony+Ideal+Liberty+Love+Practicality+Self.expression+Stability+Structure, data = has_tv, family = "binomial")
+
+
+mylogit <- glm(Wi.Fi ~ Openness+Conscientiousness+Extraversion+Agreeableness+Neuroticism, data = wifi, family = "binomial")
+mylogit <- glm(Wi.Fi ~ Conservation+Openness.to.change+Hedonism+Self.enhancement+Self.transcendence, data = wifi, family = "binomial")
+mylogit <- glm(Wi.Fi ~ Challenge+Closeness+Curiosity+Excitement+Harmony+Ideal+Liberty+Love+Practicality+Self.expression+Stability+Structure, data = wifi, family = "binomial")
+
+
+
+mylogit <- glm(Outdoor.Seating ~ Openness+Conscientiousness+Extraversion+Agreeableness+Neuroticism, data = outdoor_seating, family = "binomial")
+mylogit <- glm(Outdoor.Seating ~ Conservation+Openness.to.change+Hedonism+Self.enhancement+Self.transcendence, data = outdoor_seating, family = "binomial")
+mylogit <- glm(Outdoor.Seating ~ Challenge+Closeness+Curiosity+Excitement+Harmony+Ideal+Liberty+Love+Practicality+Self.expression+Stability+Structure, data = outdoor_seating, family = "binomial")
+
+
+test <- multinom(pr2 ~ Openness+Conscientiousness+Extraversion+Agreeableness+Neuroticism, data = price_range)
+test <- multinom(pr2 ~ Conservation+Openness.to.change+Hedonism+Self.enhancement+Self.transcendence, data = price_range)
+test <- multinom(pr2 ~ Challenge+Closeness+Curiosity+Excitement+Harmony+Ideal+Liberty+Love+Practicality+Self.expression+Stability+Structure, data = price_range)
+
+
+test <- multinom(ab2 ~ Openness+Conscientiousness+Extraversion+Agreeableness+Neuroticism, data = ambience)
+test <- multinom(ab2 ~ Conservation+Openness.to.change+Hedonism+Self.enhancement+Self.transcendence, data = ambience)
+test <- multinom(ab2 ~ Challenge+Closeness+Curiosity+Excitement+Harmony+Ideal+Liberty+Love+Practicality+Self.expression+Stability+Structure, data = ambience)
+
+
+test <- multinom(at2 ~ Openness+Conscientiousness+Extraversion+Agreeableness+Neuroticism, data = attire)
+test <- multinom(at2 ~ Conservation+Openness.to.change+Hedonism+Self.enhancement+Self.transcendence, data = attire)
+test <- multinom(at2 ~ Challenge+Closeness+Curiosity+Excitement+Harmony+Ideal+Liberty+Love+Practicality+Self.expression+Stability+Structure, data = attire)
+
+
+test <- multinom(nl2 ~ Openness+Conscientiousness+Extraversion+Agreeableness+Neuroticism, data = noise_level)
+test <- multinom(nl2 ~ Conservation+Openness.to.change+Hedonism+Self.enhancement+Self.transcendence, data = noise_level)
+test <- multinom(nl2 ~ Challenge+Closeness+Curiosity+Excitement+Harmony+Ideal+Liberty+Love+Practicality+Self.expression+Stability+Structure, data = noise_level)
+
+
+test <- multinom(al2 ~ Openness+Conscientiousness+Extraversion+Agreeableness+Neuroticism, data = alcohol)
+test <- multinom(al2 ~ Conservation+Openness.to.change+Hedonism+Self.enhancement+Self.transcendence, data = alcohol)
+test <- multinom(al2 ~ Challenge+Closeness+Curiosity+Excitement+Harmony+Ideal+Liberty+Love+Practicality+Self.expression+Stability+Structure, data = alcohol)
