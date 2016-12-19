@@ -107,38 +107,7 @@ def question():
         rqry=makequery(a1,a2,a3,a4,a5)
         print rqry
         return render_template('question.html', form=form)
-        '''
-        qry=rqry##{"attributes.Ambience.trendy":True}
-        res=query_restaurant(qry)
-        rstrnt=res.get("names")
-        stars=res.get("stars")
-        reviews=res.get("reviews")
-        rnge=range(len(stars))
-        imgs=[]
-        links=[]
-        lt=[]
-        extractor=PosWordCloudGenerator()
-        for i in rnge:
-            freqs=extractor.create_wordcloud(str(reviews[i]))
-    ##        print freqs
-            lt.append(freqs)
-        for r in rstrnt:
-            query=r+''+' Restaurant,Pittsburg,'
-            try:
-                bimg=PyMsCognitiveImageSearch('2a63458b103540af840b0515da917bdd', query)
-                res=bimg.search(limit=3,format='json')
-    ##            if res.status_code==404:
-    ##                res=[{"content_url":""},{"content_url":""},{"content_url":""}]
-            except:
-                links=['','','']
-                imgs.append(links)
-                continue
-            links=[]
-            for i in res:
-                links.append(i.content_url)
-            imgs.append(links)
-        return render_template("index.html",freqs=lt,rname=rstrnt,rnge=rnge,images=imgs,stars=stars)
-'''
+        
     elif request.method == 'GET':
         print 'GET'
         session['question'] = 1
@@ -168,12 +137,12 @@ def index():
     print '**************************************************************************'
     extractor=PosWordCloudGenerator()
     for i in rnge:
-        freqs=extractor.create_wordcloud(str(reviews[i]))
+        freqs=extractor.create_wordcloud(reviews[i])
         lt.append(freqs)
     for r in rstrnt:
         query=r+''+' Restaurant,Pittsburg,'
         try:
-            bimg=PyMsCognitiveImageSearch('Api Key', query)
+            bimg=PyMsCognitiveImageSearch('2a63458b103540af840b0515da917bdd', query)
             res=bimg.search(limit=3,format='json')
         except:
             links=['','','']
@@ -189,17 +158,20 @@ def index():
     return render_template("index.html",freqs=lt,rname=rstrnt,rnge=rnge,images=imgs,stars=stars)
 
 def query_restaurant(query):
-    client=MongoClient('mongodb://yelpers:<pass>@ds139567.mlab.com:39567/w6998')
+    client=MongoClient('mongodb://yelpers:abc123@ds139567.mlab.com:39567/w6998')
     db=client.w6998
     restrnt=db.restaurants
     result=dict()
     names=[]
     stars=[]
     text=[]
-    for r in restrnt.find(query).limit(2).sort("stars",pymongo.DESCENDING):
+    for r in restrnt.find(query).limit(5).sort("stars",pymongo.DESCENDING):
         names.append(r["name"])
         stars.append(r["stars"])
-        text.append(r["reviews"])
+        try:
+            text.append(r["reviews"].encode("utf-8"))
+        except UnicodeEncodeError:
+            text.append('EncodingErrorinYelp dataset')
     result["names"]=names
     result["stars"]=stars
     result["reviews"]=text
